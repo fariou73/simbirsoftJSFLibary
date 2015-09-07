@@ -1,5 +1,4 @@
-Проект делался на wildfly 9
-конфигурационный файл:
+wildfly 9 configuration file
 
 <security-domain name="securityexampledomain" cache-type="default">
                     <authentication>
