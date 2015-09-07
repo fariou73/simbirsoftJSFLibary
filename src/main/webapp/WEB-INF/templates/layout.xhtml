@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title><ui:insert name="title">JSF Example Title</ui:insert></title>
+</h:head>
+<h:body>
+
+    <!--
+     See how to create/change the layout in http://www.primefaces.org/showcase/ui/panel/layout/element.xhtml
+     We're using "Full": http://www.primefaces.org/showcase/ui/panel/layout/full.xhtml
+    -->
+    <p:layout fullPage="true">
+        <p:layoutUnit position="west" size="280" header="Меню" resizable="true" closable="true" collapsible="true">
+            <ui:include src="header.xhtml"/>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center">
+            <ui:insert name="content">Put default content here, if any.</ui:insert>
+        </p:layoutUnit>
+
+        <p:layoutUnit rendered="#{!(request.isUserInRole(roleBean.adminRole) || request.isUserInRole(roleBean.userRole))}" position="north" size="85" resizable="false">
+            <p:menubar>
+                <p:menuitem value="Авторизоваться" icon="ui-icon-gear" url="/user/bookManager.xhtml"/>
+            </p:menubar>
+        </p:layoutUnit>
+
+
+    </p:layout>
+</h:body>
+</html>
+

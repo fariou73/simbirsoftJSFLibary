@@ -1,0 +1,64 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        Учетные записи
+    </ui:define>
+
+    <ui:define name="content">
+        <p:growl id="message" showDetail="true"/>
+        <h:form>
+            <p:dataTable var="user" value="#{userBean.all}" paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="6,12,16">
+                <p:column headerText="Id">
+                    <h:outputText value="#{user.id}"/>
+                </p:column>
+                <p:column headerText="Имя пользователя">
+                    <h:outputText value="#{user.login}"/>
+                </p:column>
+                <p:column headerText="Пароль">
+                    <h:outputText value="#{user.password}"/>
+                </p:column>
+                <p:column headerText="Роль">
+                    <h:outputText value="#{user.role}"/>
+                </p:column>
+            </p:dataTable>
+
+            <div style="margin-left: 30px; white-space: nowrap;">
+                <h:outputText style="margin-left: 30px;" value="Имя пользователя: "/>
+                <h:inputText binding="#{userName}" style="width: 100px;"/>
+                <h:outputText style="margin-left: 30px;" value="Пароль: "/>
+                <h:inputText binding="#{userPassword}" style="width: 100px;"/>
+                <h:outputText style="margin-left: 30px;" value="Роль: "/>
+                <p:selectOneMenu binding="#{userRole}" style="margin-top: 40px; width:100px;">
+                    <f:selectItem itemLabel="ADMIN" itemValue="ADMIN"/>
+                    <f:selectItem itemLabel="USER" itemValue="USER"/>
+                </p:selectOneMenu>
+                <h:commandButton style="margin-left: 20px;" value="Добавить"
+                                 action="#{userBean.add(userName.value, userPassword.value, userRole.value)}"/>
+            </div>
+
+            <div style="margin-left: 30px; white-space: nowrap;">
+                <h:outputText style="margin-left: 30px;" value="Id: "/>
+                <p:inputMask mask="9?9999" binding="#{userIdTpUpdate}" style="width: 100px;"/>
+                <h:outputText style="margin-left: 30px;" value="Пароль: "/>
+                <h:inputText binding="#{userPasswordToUpdate}" style="width: 100px;"/>
+                <h:outputText style="margin-left: 30px;" value="Роль:  "/>
+                <p:selectOneMenu binding="#{userRoleToUpdate}" style="margin-top: 40px; width:100px">
+                    <f:selectItem itemLabel="ADMIN" itemValue="ADMIN"/>
+                    <f:selectItem itemLabel="USER" itemValue="USER"/>
+                </p:selectOneMenu>
+                <h:commandButton style="margin-left: 20px" value="Обновить"
+                                 action="#{userBean.update(userIdTpUpdate.value, userPasswordToUpdate.value,userRoleToUpdate.value)}"/>
+                <h:commandButton style="margin-left: 20px" value="Удалить"
+                                 action="#{userBean.remove(userIdTpUpdate.value)}"/>
+            </div>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form>
+        <p:menu>
+            <p:menuitem value="Книжный каталог" icon="ui-icon-document" action="/index.xhtml"></p:menuitem>
+            <p:menuitem value="Ваши бланки" icon="ui-icon-wrench" url="/user/bookManager.xhtml"
+                        rendered="#{request.isUserInRole(roleBean.adminRole) || request.isUserInRole(roleBean.userRole)}"></p:menuitem>
+            <p:menuitem value="Работа с бланками" icon="ui-icon-wrench"
+                        url="/admin/bookAdministration.xhtml"
+                        rendered="#{request.isUserInRole(roleBean.adminRole)}"></p:menuitem>
+            <p:menuitem value="Учетные записи" icon="ui-icon-person" url="/admin/administration.xhtml"
+                        rendered="#{request.isUserInRole(roleBean.adminRole)}"></p:menuitem>
+        </p:menu>
+    </h:form>
+</ui:composition>
